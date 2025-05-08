@@ -103,7 +103,9 @@ certifique-se de ter as seguintes ferramentas instaladas na sua máquina:
 
 ### ⚙️ Back-end
 
-⚠️ Utilize o arquivo `.env.example` como base para criar o arquivo `.env` em cada projeto.
+#### 🐳 Executando com Docker Compose (opcional)
+
+###### ⚠️ Utilize o arquivo `.env.example` como base para criar o arquivo `.env` em cada projeto.
 
 ```bash
 # Clone o repositórios abaixo
@@ -112,11 +114,33 @@ $ git clone https://github.com/geovaneborba/ftr-pos-desafio-brev-ly.git
 # Entre na pasta server
 $ cd ftr-pos-desafio-brev-ly/server
 
-# Instale as dependências
-$ pnpm install # ou npm install
+# Copia o arquivo .env.example para .env e preencha as variáveis de ambiente
+$ cp .env.example .env
 
-# Crie o arquivo .env com as variáveis de ambiente
-$ cp .env.example .env # Copia o arquivo .env.example para .env
+# Subir a stack (api + banco de dados)
+$ docker compose up -d --build
+
+# O serviço estará disponível em http://localhost:3333
+```
+
+<p align="right">(<a href="#top">Voltar para o topo</a>)</p>
+
+#### 🏠 Executando localmente
+
+###### ⚠️ Utilize o arquivo `.env.example` como base para criar o arquivo `.env` em cada projeto.
+
+```bash
+# Clone o repositórios abaixo
+$ git clone https://github.com/geovaneborba/ftr-pos-desafio-brev-ly.git
+
+# Entre na pasta server
+$ cd ftr-pos-desafio-brev-ly/server
+
+# Copia o arquivo .env.example para .env e preencha as variáveis de ambiente
+$ cp .env.example .env
+
+# Instale as dependências utilizando pnpm ou npm
+$ pnpm install
 
 # Gere as migrations
 $ pnpm db:generate
@@ -125,34 +149,37 @@ $ pnpm db:generate
 $ pnpm db:migrate
 
 # Execute o projeto
-pnpm dev # ou npm run dev
+$ pnpm dev
 
-# Caso queria rodar utilizando o docker, execute o seguinte comando:
-$ docker-compose up -d --build
+# Caso queira subir apenas o banco de dados, execute o seguinte comando:
+$ docker compose up -d db
 
+# O serviço estará disponível em http://localhost:3333
 ```
+
+<p align="right">(<a href="#top">Voltar para o topo</a>)</p>
 
 ### 💻 Front-end
 
-⚠️ Utilize o arquivo `.env.example` como base para criar o arquivo `.env` em cada projeto.
+###### ⚠️ Utilize o arquivo `.env.example` como base para criar o arquivo `.env` em cada projeto.
 
 ```bash
 # Entra na pasta web e instale as dependências
 $ cd ftr-pos-desafio-brev-ly/web
 
-# Instale as dependências
-$ pnpm install # npm install
+# Instale as dependências utilizando pnpm ou npm
+$ pnpm install
 
-# Crie o arquivo .env com as variáveis de ambiente
-$ cp .env.example .env # Copia o arquivo .env.example para .env
+# Copia o arquivo .env.example para .env
+$ cp .env.example .env
 
 # Execute o projeto
-$ pnpm dev # npm run dev
+$ pnpm dev
 
 # Acesse o projeto em seu navegador: http://localhost:5173, ou entre pela url exibida no terminal.
-
 
 ```
 
 <p align="right">(<a href="#top">Voltar para o topo</a>)</p>
+
 <p align="center">Feito com ❤️ por <a href="https://github.com/geovaneborba" target="_blank">Geovane Borba</a></p>

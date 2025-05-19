@@ -64,7 +64,7 @@ export function ShortLinkProvider({ children }: ShortLinkProviderProps) {
       if (error instanceof AxiosError) {
         if (error.response?.status === 409) {
           toast.error('Erro ao criar o link encurtado.', {
-            description: 'Essa link encurtado já existe.',
+            description: 'Esse link encurtado já existe.',
           })
         } else {
           toast.error('Erro ao criar o link encurtado.', {
@@ -83,7 +83,7 @@ export function ShortLinkProvider({ children }: ShortLinkProviderProps) {
 
       const response = await api.get('/links')
 
-      setLinks(response.data)
+      setLinks(Array.isArray(response.data) ? response.data : [])
     } catch (error) {
       console.error('Error fetching links:', error)
       toast.error('Erro ao buscar os links', {

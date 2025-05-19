@@ -5,7 +5,6 @@ import {
   FastifyPluginAsyncZod,
   ZodTypeProvider,
 } from "fastify-type-provider-zod";
-import { z } from "zod";
 
 export const getLinksRoute: FastifyPluginAsyncZod = async (app) => {
   app.withTypeProvider<ZodTypeProvider>().route({
@@ -14,9 +13,6 @@ export const getLinksRoute: FastifyPluginAsyncZod = async (app) => {
     schema: {
       response: {
         200: linkSchema.array(),
-        400: z.object({
-          message: z.string(),
-        }),
       },
     },
     handler: async (request, reply) => {

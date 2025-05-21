@@ -6,43 +6,39 @@ services:
     image: bitnami/postgresql:latest
     restart: unless-stopped
     ports:
-      - $POSTGRESQL_PORT:$POSTGRESQL_PORT
-    environment:
-      - POSTGRESQL_USERNAME=$POSTGRESQL_USERNAME
-      - POSTGRESQL_PASSWORD=$POSTGRESQL_PASSWORD
-      - POSTGRESQL_DATABASE=$POSTGRESQL_DATABASE
+      - $POSTGRESQL_PORT:5432
+    env_file:
+      - .env
     volumes:
       - ./docker:/docker-entrypoint-initdb.d
-      - app-db-volume:/bitnami/postgresql
+      - db-volume:/bitnami/postgresql
     networks:
+      - db-network
       - app-network
-      - app-db-network
+
   app:
-    container_name: brev-ly-api
-    build: .
     depends_on:
       - db
     restart: unless-stopped
+    container_name: brev-ly-api
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - $PORT:$PORT
+    env_file:
+      - .env
     environment:
-      - PORT=$PORT
       - NODE_ENV=production
-      - DATABASE_URL=$DATABASE_URL
-      - CLOUDFLARE_ACCESS_KEY_ID=$CLOUDFLARE_ACCESS_KEY_ID
-      - CLOUDFLARE_SECRET_ACCESS_KEY=$CLOUDFLARE_SECRET_ACCESS_KEY
-      - CLOUDFLARE_BUCKET=$CLOUDFLARE_BUCKET
-      - CLOUDFLARE_ACCOUNT_ID=$CLOUDFLARE_ACCOUNT_ID
-      - CLOUDFLARE_PUBLIC_URL=$CLOUDFLARE_PUBLIC_URL
     networks:
       - app-network
 
 volumes:
-  app-db-volume:
+  db-volume:
     driver: local
 
 networks:
-  app-db-network:
+  db-network:
     driver: bridge
   app-network:
     driver: bridge

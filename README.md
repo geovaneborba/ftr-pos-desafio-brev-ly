@@ -96,12 +96,44 @@ certifique-se de ter as seguintes ferramentas instaladas na sua máquina:
 - [Git](https://git-scm.com)
 - [Node.js](https://nodejs.org/en/)
 - [Docker](https://www.docker.com/)
+- [pnpm](https://pnpm.io/installation)
 
 <p align="right">(<a href="#top">Voltar para o topo</a>)</p>
 
 ## :checkered_flag: Começando
 
 ### ⚙️ Back-end
+
+#### 🏠 Executando localmente
+
+###### ⚠️ Utilize o arquivo `.env.example` como base para criar o arquivo `.env` em cada projeto.
+
+```bash
+# Clone o repositórios abaixo
+$ git clone https://github.com/geovaneborba/ftr-pos-desafio-brev-ly.git
+
+# Entre na pasta server
+$ cd ftr-pos-desafio-brev-ly/server
+
+# Copia o arquivo .env.example para .env e preencha as variáveis de ambiente
+$ cp .env.example .env
+
+# Instale as dependências
+$ pnpm install
+
+# Execute as migrations
+$ pnpm db:migrate
+
+# Execute o projeto
+$ pnpm dev
+
+# Caso queira subir apenas o banco de dados, execute o seguinte comando:
+$ docker compose up -d db
+
+# O serviço estará disponível em http://localhost:3333
+```
+
+<p align="right">(<a href="#top">Voltar para o topo</a>)</p>
 
 #### 🐳 Executando com Docker Compose (opcional)
 
@@ -125,40 +157,6 @@ $ docker compose up -d --build
 
 <p align="right">(<a href="#top">Voltar para o topo</a>)</p>
 
-#### 🏠 Executando localmente
-
-###### ⚠️ Utilize o arquivo `.env.example` como base para criar o arquivo `.env` em cada projeto.
-
-```bash
-# Clone o repositórios abaixo
-$ git clone https://github.com/geovaneborba/ftr-pos-desafio-brev-ly.git
-
-# Entre na pasta server
-$ cd ftr-pos-desafio-brev-ly/server
-
-# Copia o arquivo .env.example para .env e preencha as variáveis de ambiente
-$ cp .env.example .env
-
-# Instale as dependências utilizando pnpm ou npm
-$ pnpm install
-
-# Gere as migrations
-$ pnpm db:generate
-
-# Execute as migrations
-$ pnpm db:migrate
-
-# Execute o projeto
-$ pnpm dev
-
-# Caso queira subir apenas o banco de dados, execute o seguinte comando:
-$ docker compose up -d db
-
-# O serviço estará disponível em http://localhost:3333
-```
-
-<p align="right">(<a href="#top">Voltar para o topo</a>)</p>
-
 ### 💻 Front-end
 
 ###### ⚠️ Utilize o arquivo `.env.example` como base para criar o arquivo `.env` em cada projeto.
@@ -167,7 +165,7 @@ $ docker compose up -d db
 # Entra na pasta web e instale as dependências
 $ cd ftr-pos-desafio-brev-ly/web
 
-# Instale as dependências utilizando pnpm ou npm
+# Instale as dependências
 $ pnpm install
 
 # Copia o arquivo .env.example para .env

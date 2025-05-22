@@ -17,7 +17,6 @@ app.setSerializerCompiler(serializerCompiler);
 
 app.register(fastifyCors, {
   origin: "*",
-  methods: ["GET", "POST", "PATCH", "DELETE"],
 });
 
 app.register(fastifyMultipart);

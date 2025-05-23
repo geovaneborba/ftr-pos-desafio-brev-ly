@@ -14,16 +14,12 @@ RUN pnpm build
 RUN pnpm prune --prod
 
 FROM gcr.io/distroless/nodejs22-debian12 AS production
-USER 1000
 WORKDIR /usr/src/app
 COPY --from=build /usr/src/app/dist ./dist
 COPY --from=build /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/package.json ./package.json
 COPY --from=build /usr/src/app/pnpm-lock.yaml ./pnpm-lock.yaml
+USER 1000
 
 EXPOSE 3333
 CMD ["dist/infra/http/server.js"]
-
-
-
-

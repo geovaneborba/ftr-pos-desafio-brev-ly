@@ -9,6 +9,7 @@
   "keywords": [],
   "scripts": {
     "dev": "tsx watch --env-file .env src/infra/http/server.ts",
+    "start": "tsx watch src/infra/http/server.ts",
     "build": "tsup-node",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",

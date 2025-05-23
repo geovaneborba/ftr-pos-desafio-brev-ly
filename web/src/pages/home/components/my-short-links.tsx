@@ -14,7 +14,7 @@ export function MyShortLinks() {
   const shouldShowEmptyState = links.length === 0 && !isFetchingLinks
   const shouldShowLinks = links.length > 0 && !isFetchingLinks
   const shouldShowProgressBar = isFetchingLinks
-  const shouldShowSkeleton = isFetchingLinks && links.length === 0
+  const shouldShowSkeleton = isFetchingLinks
 
   return (
     <div

@@ -127,8 +127,8 @@ $ pnpm db:migrate
 # Execute o projeto
 $ pnpm dev
 
-# Caso queira subir apenas o banco de dados, execute o seguinte comando:
-$ docker compose up -d db
+# Caso queira subir apenas o banco de dados (PostgreSQL), execute o seguinte comando:
+$ docker compose -f docker-compose-base.yml up -d db
 
 # O serviço estará disponível em http://localhost:3333
 ```
@@ -137,23 +137,54 @@ $ docker compose up -d db
 
 #### 🐳 Executando com Docker Compose (opcional)
 
-###### ⚠️ Utilize o arquivo `.env.example` como base para criar o arquivo `.env` em cada projeto.
+> ⚠️ Antes de rodar a aplicação, é necessário rodar as migrations do banco de dados. Para isso, comece executando o ambiente de desenvolvimento
+
+**Observação:**
+
+- O arquivo [docker-compose-base.yml](./server/docker-compose-base.yml) define o banco de dados e redes compartilhadas e volumes.
+- O arquivo [docker-compose-dev.yml](./server/docker-compose-dev.yml) adiciona a API em modo desenvolvimento e executa as migrations automaticamente.
+- O arquivo [docker-compose-prod.yml](./server/docker-compose-prod.yml) adiciona a API em modo produção.
+
+#### 🛠️ Ambiente de Desenvolvimento
 
 ```bash
-# Clone o repositórios abaixo
-$ git clone https://github.com/geovaneborba/ftr-pos-desafio-brev-ly.git
+# Certifique-se de estar na pasta server
+cd ftr-pos-desafio-brev-ly/server
 
-# Entre na pasta server
-$ cd ftr-pos-desafio-brev-ly/server
+# Copie o arquivo de variáveis de ambiente
+cp .env.example .env
 
-# Copia o arquivo .env.example para .env e preencha as variáveis de ambiente
-$ cp .env.example .env
-
-# Subir a stack (api + banco de dados)
-$ docker compose up -d --build
-
-# O serviço estará disponível em http://localhost:3333
+# Suba os serviços de desenvolvimento (API + banco de dados)
+docker compose -f docker-compose-base.yml -f docker-compose-dev.yml up --build -d
 ```
+
+- O serviço da API estará disponível em [http://localhost:3333](http://localhost:3333).
+- O banco de dados estará disponível na porta definida em seu `.env`
+
+---
+
+#### 🚀 Ambiente de Produção
+
+> Para rodar a aplicação em modo produção (build otimizado):
+
+```bash
+# Certifique-se de estar na pasta server
+cd ftr-pos-desafio-brev-ly/server
+
+# Copie o arquivo de variáveis de ambiente
+cp .env.example .env
+
+# Remova os serviços de desenvolvimento (API + banco de dados)
+docker compose -f docker-compose-base.yml -f docker-compose-dev.yml down
+
+# Suba os serviços de produção (API + banco de dados)
+docker compose -f docker-compose-base.yml -f docker-compose-prod.yml up --build -d
+```
+
+- O serviço da API estará disponível em [http://localhost:3333](http://localhost:3333).
+- O banco de dados estará disponível na porta definida em seu `.env`
+
+---
 
 <p align="right">(<a href="#top">Voltar para o topo</a>)</p>
 
@@ -173,10 +204,9 @@ $ cp .env.example .env
 
 # Execute o projeto
 $ pnpm dev
-
-# Acesse o projeto em seu navegador: http://localhost:5173, ou entre pela url exibida no terminal.
-
 ```
+
+- Acesse o projeto em seu navegador: http://localhost:5173, ou entre pela url exibida no terminal.
 
 <p align="right">(<a href="#top">Voltar para o topo</a>)</p>
 
